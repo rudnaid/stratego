@@ -5,8 +5,8 @@ project(stratego)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(
-        include/Game/
-        include/UI/
+        include/core/
+        include/ui/
 )
 
 add_subdirectory(source)
