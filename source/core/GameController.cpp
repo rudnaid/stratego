@@ -1,14 +1,9 @@
-#include "GameController.h"
+#include <core/GameController.h>
 
+GameController::GameController(ISDL2UI *ui, GameState *gameState,
+                               IRulesEngine *rules, IHistoryManager *history)
+    : gameState(gameState), ui(ui), rulesEngine(rules), history(history) {}
 
+void GameController::initGame() {}
 
-
-
-GameController::GameController(ISDL2UI* ui,GameState* gameState): ui(ui), gameState(gameState) {}
-
-
-void GameController::initGame() {
-}
-
-void GameController::startLoop() {
-}
+void GameController::startLoop() {}

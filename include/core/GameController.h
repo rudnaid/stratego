@@ -1,18 +1,19 @@
 #pragma once
 #include "GameState.h"
 #include "IGameController.h"
-#include "ISDL2UI.h"
+#include "rules/IHistoryManager.h"
+#include "rules/IRulesEngine.h"
+#include "ui/ISDL2UI.h"
+
 class GameController : public IGameController {
+  GameState *gameState;
+  ISDL2UI *ui;
+  IRulesEngine *rulesEngine;
+  IHistoryManager *history;
 
-    GameState* gameState;
-    ISDL2UI* ui;
-
-    public:
-    GameController(ISDL2UI* ui, GameState* gameState);
-    ~GameController() override;
-    void initGame() override;
-    void startLoop() override;
-
-
-
+public:
+  GameController(ISDL2UI *ui, GameState *gameState, IRulesEngine *rules,
+                 IHistoryManager *history);
+  void initGame() override;
+  void startLoop() override;
 };
