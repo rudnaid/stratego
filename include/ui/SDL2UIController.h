@@ -8,8 +8,6 @@
 #include "ISDL2UI.h"
 #include "Texture.h"
 
-class GameState;
-
 class SDL2UIController : public ISDL2UI {
     IGameController* game;
 
