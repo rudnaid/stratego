@@ -6,13 +6,13 @@ class GameController : public IGameController {
 
     GameState* gameState;
     ISDL2UI* ui;
-
+    bool isRunning= true;
     public:
     GameController(ISDL2UI* ui, GameState* gameState);
     ~GameController() override;
     void initGame() override;
     void startLoop() override;
-
+    void stopGame() override;
 
 
 };
