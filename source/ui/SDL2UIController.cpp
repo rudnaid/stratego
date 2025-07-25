@@ -3,13 +3,14 @@
 #include <filesystem>
 #include <iostream>
 #include <thread>
-using namespace std;
+
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 
-static const std::string PATH = "../../resources/";
-// static auto const PATH = (filesystem::current_path() /
-// "resources\\").u8string();
+using namespace std;
+
+static const string PATH = "resources/background/";
+
 SDL2UIController::~SDL2UIController() {
 
   cout << "Destroying Texture objects" << endl;

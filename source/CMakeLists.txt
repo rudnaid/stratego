@@ -13,7 +13,6 @@ find_package(SDL2_image CONFIG REQUIRED)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-
 target_link_libraries(stratego
         PRIVATE
         SDL2::SDL2main
@@ -21,4 +20,6 @@ target_link_libraries(stratego
         SDL2_image::SDL2_image
 )
 
-find_package(SDL2_image CONFIG REQUIRED)
+add_custom_command(TARGET stratego POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:stratego>/resources/background)
