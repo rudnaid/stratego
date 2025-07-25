@@ -1,18 +1,25 @@
 set(SOURCES
         main.cpp
+        core/GameController.cpp
+        ui/SDL2UIController.cpp
+        ui/Texture.cpp
+        core/GameFactory.cpp
 )
 
 add_executable(stratego ${SOURCES})
 
-# Find SDL2 and SDL2_image
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
 
-
-# Link SDL2 and SDL2_image libraries
 target_link_libraries(stratego
         PRIVATE
-        SDL2::SDL2main   # SDL2 main function library
-        SDL2::SDL2       # SDL2 library
-        SDL2_image::SDL2_image  # SDL2_image library for image handling
+        SDL2::SDL2main
+        SDL2::SDL2
+        SDL2_image::SDL2_image
 )
+
+add_custom_command(TARGET stratego POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:stratego>/resources/background)
