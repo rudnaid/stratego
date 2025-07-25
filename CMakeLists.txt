@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(
         include/core/
         include/ui/
+        include/rules
+        include/util
 )
 
 add_subdirectory(source)

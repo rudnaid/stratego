@@ -1,4 +1,4 @@
 #pragma once
-#include "rules/IHistoryManager.h"
+#include "IHistoryManager.h"
 
 class HistoryManager : public IHistoryManager {};

@@ -1,17 +1,18 @@
 #include <iostream>
-#include <SDL.h>
 #include <memory>
 
-#include "GameController.h"
-#include "SDL2UIController.h"
+#include "GameFactory.h"
+#include "IGameFactory.h"
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    auto ui = make_unique<SDL2UIController>();
-    auto gameState = make_unique<GameState>();
-    unique_ptr<IGameController> game = make_unique<GameController>(ui.get(), gameState.get());
-    ui->setGameController(game.get());
-    game->startLoop();
-    cout << "Exiting..." << endl;
-    return 0;
+  const auto gameFactory = make_unique<GameFactory>();
+
+  const auto game = gameFactory->createController();
+
+  game->startLoop();
+
+  cout << "Exiting..." << endl;
+  return 0;
 }

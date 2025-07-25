@@ -2,9 +2,9 @@
 #include "GameState.h"
 #include "IGameController.h"
 #include "IGameFactory.h"
-#include "rules/IHistoryManager.h"
-#include "rules/IRulesEngine.h"
-#include "ui/ISDL2UI.h"
+#include "IHistoryManager.h"
+#include "IRulesEngine.h"
+#include "ISDL2UI.h"
 
 #include <memory>
 
@@ -15,5 +15,8 @@ class GameFactory : public IGameFactory {
   std::unique_ptr<IHistoryManager> history;
 
 public:
+  GameFactory() = default;
+  ~GameFactory() override = default;
+
   std::unique_ptr<IGameController> createController() override;
 };

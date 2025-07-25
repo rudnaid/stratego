@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/IGameController.h>
+#include <IGameController.h>
 #include <memory>
 
 class IGameFactory {
