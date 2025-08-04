@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.h"
 #include <Player.h>
+#include <Unit.h>
 
 #include <vector>
 
@@ -13,6 +14,7 @@ public:
   GameState();
   void setupInitialLayout();
   void togglePlayer();
-  Board& getBoard();
-  Player getCurrentPlayer() const;
+  void executeMove(const Move &move);
+  Board &getBoard();
+  Player &getCurrentPlayer();
 };

@@ -11,7 +11,12 @@ void GameState::setupInitialLayout() {
 void GameState::togglePlayer() {
   currentPlayerID = (currentPlayerID + 1) % players.size();
 }
+void GameState::executeMove(const Move &move) {
+  Unit *occupant = board.getOccupant(move.from);
+  board.setOccupant(move.to, occupant);
+  board.clearOccupant(move.from);
+}
 
 Board &GameState::getBoard() { return board; }
 
-Player GameState::getCurrentPlayer() const { return players.at(currentPlayerID); }
+Player &GameState::getCurrentPlayer() { return players.at(currentPlayerID); }
