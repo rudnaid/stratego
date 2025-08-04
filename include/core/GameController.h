@@ -4,7 +4,6 @@
 #include "ISDL2UI.h"
 
 class GameController : public IGameController {
-
   ISDL2UI *ui;
   GameState *gameState;
 

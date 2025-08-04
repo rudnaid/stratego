@@ -14,5 +14,5 @@ public:
   void setupInitialLayout();
   void togglePlayer();
   Board& getBoard();
-  Player getCurrentPlayer();
+  Player getCurrentPlayer() const;
 };

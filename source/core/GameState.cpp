@@ -14,4 +14,4 @@ void GameState::togglePlayer() {
 
 Board &GameState::getBoard() { return board; }
 
-Player GameState::getCurrentPlayer() { return players.at(currentPlayerID); }
+Player GameState::getCurrentPlayer() const { return players.at(currentPlayerID); }
