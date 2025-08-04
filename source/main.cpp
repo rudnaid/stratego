@@ -7,9 +7,9 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  const auto gameFactory = make_unique<GameFactory>();
+  const std::unique_ptr<IGameFactory> factory = make_unique<GameFactory>();
 
-  const auto game = gameFactory->createController();
+  const auto game = factory->createController();
 
   game->startLoop();
 
