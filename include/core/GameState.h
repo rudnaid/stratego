@@ -18,5 +18,6 @@ public:
   void executeMove(const Move &move);
   const std::vector<Unit *> &getUnitsNotOnBoard() const;
   Board &getBoard();
+  const Board &getBoard() const;
   Player &getCurrentPlayer();
 };

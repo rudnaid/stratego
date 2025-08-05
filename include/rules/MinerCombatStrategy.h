@@ -1,7 +1,8 @@
 #pragma once
 #include "ICombatStrategy.h"
 
-class MinerCombatStrategy : ICombatStrategy {
+class MinerCombatStrategy final : ICombatStrategy {
 public:
+  ~MinerCombatStrategy() override = default;
   CombatResult resolve(Unit &attacker, Unit &defender) override;
 };

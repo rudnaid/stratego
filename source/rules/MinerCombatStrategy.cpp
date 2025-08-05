@@ -1,5 +1,18 @@
 #include "MinerCombatStrategy.h"
 
 CombatResult MinerCombatStrategy::resolve(Unit &attacker, Unit &defender) {
-  throw std::runtime_error("Not implemented");
+  if (defender.getRank() == UnitRank::Bomb) {
+    return CombatResult::Win;
+  }
+
+  const int attackerPower = attacker.getPower();
+  const int defenderPower = defender.getPower();
+
+  if (attackerPower > defenderPower) {
+    return CombatResult::Win;
+  } else if (attackerPower < defenderPower) {
+    return CombatResult::Lose;
+  } else {
+    return CombatResult::Draw;
+  }
 }
