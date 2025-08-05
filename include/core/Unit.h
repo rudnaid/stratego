@@ -16,4 +16,7 @@ public:
   int getPower() const;
   Player& getOwner() const;
   std::string getName() const;
+  UnitRank getRank() const;
+  IMovementStrategy& getMoveStrategy() const;
+  ICombatStrategy& getCombatStrategy() const;
 };
