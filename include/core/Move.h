@@ -1,5 +1,7 @@
 #pragma once
+#include "Position.h"
 
-class Move {
-
+struct Move {
+    Position from;
+    Position to;
 };

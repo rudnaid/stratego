@@ -4,12 +4,12 @@ set(SOURCES
         ui/SDL2UIController.cpp
         ui/Texture.cpp
         core/GameFactory.cpp
-        ../include/core/Unit.h
         core/Unit.cpp
-        ../include/core/UnitRank.h
-        ../include/core/CombatResult.h
-        ../include/core/PieceType.h
         core/PieceType.cpp
+        core/Board.cpp
+        core/Square.cpp
+        core/GameConfig.cpp
+        core/Player.cpp
 )
 
 add_executable(stratego ${SOURCES})
