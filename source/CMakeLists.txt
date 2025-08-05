@@ -7,7 +7,7 @@ set(SOURCES
         core/Unit.cpp
         core/PieceType.cpp
         core/Board.cpp
-        core/Square.cpp
+        core/Tile.cpp
         core/GameConfig.cpp
         core/Player.cpp
 )

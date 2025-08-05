@@ -1,21 +1,22 @@
 #pragma once
 #include "Position.h"
-#include "Square.h"
+#include "Tile.h"
+#include "Unit.h"
+
 #include <vector>
 
 class Board {
-  std::vector<Square> squares;
+  std::vector<Tile> tiles;
   [[nodiscard]] static int toIndex(const Position& pos) ;
   static bool isWithinBounds(const Position& pos);
 
 public:
   Board();
 
-  Square& getSquare(const Position& pos);
-  [[nodiscard]] const Square& getSquare(const Position& pos) const;
+  Tile& getTile(const Position& pos);
+  [[nodiscard]] const Tile& getTile(const Position& pos) const;
 
-  [[nodiscard]] bool isLake(const Position& pos) const;
-  Unit* getOccupant(const Position& pos) const;
+  [[nodiscard]] Unit* getOccupant(const Position& pos) const;
   void setOccupant(const Position& pos, Unit* unit);
   void clearOccupant(const Position& pos);
 };

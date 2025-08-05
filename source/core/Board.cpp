@@ -1,11 +1,13 @@
 #include "Board.h"
 #include "GameConfig.h"
+#include "Unit.h"
+
 #include <stdexcept>
 
-Board::Board() : squares(GameConfig::ROWS * GameConfig::COLS) {
+Board::Board() : tiles(GameConfig::ROWS * GameConfig::COLS) {
 
   for (const auto& lakePos : GameConfig::LAKE_POSITIONS()) {
-    getSquare(lakePos) = Square(TerrainType::Lake);
+    getTile(lakePos) = Tile(TerrainType::Lake);
   }
 }
 
@@ -20,26 +22,22 @@ int Board::toIndex(const Position& pos) {
   return pos.row() * GameConfig::COLS + pos.col();
 }
 
-Square& Board::getSquare(const Position& pos) {
-  return squares[toIndex(pos)];
+Tile& Board::getTile(const Position& pos) {
+  return tiles[toIndex(pos)];
 }
 
-const Square& Board::getSquare(const Position& pos) const {
-  return squares[toIndex(pos)];
+const Tile& Board::getTile(const Position& pos) const {
+  return tiles[toIndex(pos)];
 }
 
 Unit* Board::getOccupant(const Position& pos) const {
-  return getSquare(pos).getOccupant();
-}
-
-bool Board::isLake(const Position& pos) const {
-  return getSquare(pos).getTerrain() == TerrainType::Lake;
+  return getTile(pos).getOccupant();
 }
 
 void Board::setOccupant(const Position& pos, Unit* unit) {
-  getSquare(pos).setOccupant(unit);
+  getTile(pos).setOccupant(unit);
 }
 
 void Board::clearOccupant(const Position& pos) {
-  getSquare(pos).clearOccupant();
+  getTile(pos).clearOccupant();
 }
