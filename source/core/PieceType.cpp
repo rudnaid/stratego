@@ -1,20 +1,13 @@
 using namespace std;
 #include "PieceType.h"
 
-PieceType::PieceType(string& name, UnitRank rank, int power, int perPlayerCount) : name(name), rank(rank), power(power), perPlayerCount(perPlayerCount) {};
-PieceType::getName() const {
-  return name;
-};
+PieceType::PieceType(const UnitRank rank, const int power, int perPlayerCount)
+    : rank(rank), power(power), perPlayerCount(perPlayerCount) {}
 
-PieceType::getRank() const {
-  return rank;
-}
+std::string PieceType::getName() const { return toString(rank); }
 
-PieceType::getPower() const {
-  return power;
-}
+UnitRank PieceType::getRank() const { return rank; }
 
-PieceType::getPerPlayerCount() const {
-  return perPlayerCount;
-}
+int PieceType::getPower() const { return power; }
 
+int PieceType::getPerPlayerCount() const { return perPlayerCount; }
