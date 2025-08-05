@@ -21,11 +21,10 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 target_link_libraries(stratego
         PRIVATE
-        SDL2::SDL2main
         SDL2::SDL2
         SDL2_image::SDL2_image
 )
 
 add_custom_command(TARGET stratego POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:stratego>/resources/background)
+        ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:stratego>/resources)
