@@ -9,7 +9,7 @@
 
 using namespace std;
 
-static const string PATH = "resources/background/";
+static const string PATH = "resources/";
 
 SDL2UIController::~SDL2UIController() {
 
@@ -35,6 +35,9 @@ SDL2UIController::SDL2UIController() : window(nullptr), renderer(nullptr) {
     throw std::runtime_error("Failed to initialize UI");
   }
 
+  isDragging = false;
+  selectedUnitRect = nullptr;
+
   initLayout();
   loadTextures();
 
@@ -48,10 +51,12 @@ void SDL2UIController::closeThread() {
   }
 }
 void SDL2UIController::initLayout() {
-  backgroundRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+  backgroundRect = {0, 0, WINDOW_WIDTH/3*2, WINDOW_HEIGHT};
+  sidepanelRect = {WINDOW_WIDTH/3*2, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 }
 void SDL2UIController::loadTextures() {
   backgroundTexture = loadTexture(PATH + "background.png");
+  sidepanelTexture = loadTexture(PATH + "sidepanel.png");
 }
 
 Texture SDL2UIController::loadTexture(const string &filename) const {
@@ -109,6 +114,7 @@ bool SDL2UIController::initSDLImage() {
   return true;
 }
 
+
 void SDL2UIController::handleEvents() {
   SDL_Event e;
 
@@ -122,16 +128,80 @@ void SDL2UIController::handleEvents() {
       game->stopGame();
       break;
     }
+    if (e.type == SDL_MOUSEBUTTONDOWN) {
+      handleMouseDownEvent(e, isDragging, originalPosition);
+      break;
+    }
+
+    if (e.type == SDL_MOUSEMOTION) {
+      handleMouseMotionEvent(e, isDragging);
+      break;
+    }
+
+    if (e.type == SDL_MOUSEBUTTONUP) {
+      handleMouseUpEvent(e, originalPosition);
+      break;
+    }
   }
 }
 void SDL2UIController::drawBackground() {
   backgroundTexture.render(renderer, &backgroundRect);
+  sidepanelTexture.render(renderer, &sidepanelRect);
 }
 
 void SDL2UIController::render() {
   SDL_RenderClear(renderer);
   drawBackground();
+  drawBoard();
+  drawUnits();
   SDL_RenderPresent(renderer);
+}
+void SDL2UIController::loadBoard(const GameState &gameState) {
+
+  const Board &board = gameState.getBoard();
+  boardRectangles.size(board.size());
+  for (int row = 0; row < board.size(); row++) {
+    boardRectangles[row].size(board[row].size());
+    for (int col = 0; col < board[row].size(); col++) {
+      boardRectangles[row][col] = {col*WINDOW_WIDTH/3*2/10, row*WINDOW_HEIGHT/10, WINDOW_WIDTH/3*2/10, WINDOW_HEIGHT/10};
+    }
+  }
+}
+
+void SDL2UIController::drawBoard(const GameState &gameState) {
+  const Board &board = gameState.getBoard();
+  boardRectangles.size(board.size());
+  for (int row = 0; row < board.size(); row++) {
+    boardRectangles[row].size(board[row].size());
+    for (int col = 0; col < board[row].size(); col++) {
+      board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
+    }
+  }
+}
+void SDL2UIController::drawUnits() {
+
+  const Board &board = gameState.getBoard();
+  for (int row = 0; row < board.size(); row++) {
+    for (int col = 0; col < board[row].size(); col++) {
+      if (!board[row][col].isEmpty()) {
+        unitsRectangles.push_back({col*WINDOW_WIDTH/3*2/10, row*WINDOW_HEIGHT/10, WINDOW_WIDTH/3*2/10, WINDOW_HEIGHT/10});
+        board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
+      }
+
+    }
+  }
+}
+void SDL2UIController::loadUnits(const vector<Unit> &units) {
+
+  const Board &board = gameState.getBoard();
+  for (int row = 0; row < board.size(); row++) {
+    for (int col = 0; col < board[row].size(); col++) {
+      if (!board[row][col].isEmpty()) {
+        board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
+      }
+
+    }
+  }
 }
 void SDL2UIController::renderLoop(int delay) {
   while (renderThreadRunning) {
@@ -154,4 +224,44 @@ void SDL2UIController::showMessage(const std::string &message) {}
 
 void SDL2UIController::setGameController(IGameController *gameController) {
   game = gameController;
+}
+
+bool SDL2UIController::isMouseInsideRect(int const mouseX, int const mouseY, SDL_Rect const& rect) {
+  return (mouseX > rect.x &&
+          mouseX < rect.x + rect.w &&
+          mouseY > rect.y &&
+          mouseY < rect.y + rect.h);
+}
+void SDL2UIController::handleMouseDownEvent(const SDL_Event &e, bool &isDragging,
+                              SDL_Point &originalPosition) {
+  int const mouseX = e.button.x;
+  int const mouseY = e.button.y;
+
+  if (!unitsRectangles.empty())
+    for (auto &unitRectangle: unitsRectangles) {
+      if (isMouseInsideRect(mouseX, mouseY, unitRectangle)) {
+        isDragging = true;
+        selectedUnitRect = &unitRectangle;
+        originalPosition = {selectedUnitRect->x, selectedUnitRect->y};
+        break;
+      }
+    }
+}
+
+void SDL2UIController::handleMouseMotionEvent(const SDL_Event &e, const bool &isDragging) {
+  int const mouseX = e.motion.x;
+  int const mouseY = e.motion.y;
+
+  if (isDragging && selectedUnitRect != nullptr) {
+    selectedUnitRect->x = mouseX - selectedUnitRect->w / 2;
+    selectedUnitRect->y = mouseY - selectedUnitRect->h / 2;
+  }
+}
+
+void SDL2UIController::handleMouseUpEvent(const SDL_Event &e, SDL_Point &originalPosition) {
+  if (selectedUnitRect != nullptr) {
+    isDragging = false;
+    selectedUnitRect = nullptr;
+    originalPosition = {0, 0};
+  }
 }
