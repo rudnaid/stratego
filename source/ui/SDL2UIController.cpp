@@ -58,6 +58,9 @@ void SDL2UIController::loadTextures() {
   backgroundTexture = loadTexture(PATH + "background.png");
   sidepanelTexture = loadTexture(PATH + "sidepanel.png");
 }
+void SDL2UIController::loadUnitTexture(const string& unitName) {
+  unitsTextures.push_back(loadTexture(PATH + unitName+ ".png"));
+}
 
 Texture SDL2UIController::loadTexture(const string &filename) const {
   SDL_Texture *imgTexture = IMG_LoadTexture(renderer, filename.c_str());
@@ -183,8 +186,8 @@ void SDL2UIController::drawUnits() {
   const Board &board = gameState.getBoard();
   for (int row = 0; row < board.size(); row++) {
     for (int col = 0; col < board[row].size(); col++) {
-      if (!board[row][col].isEmpty()) {
-        unitsRectangles.push_back({col*WINDOW_WIDTH/3*2/10, row*WINDOW_HEIGHT/10, WINDOW_WIDTH/3*2/10, WINDOW_HEIGHT/10});
+      Position position = make_unique<Position>(row,col);
+      if (!board.getTile(position).isEmpty()) {
         board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
       }
 
@@ -196,8 +199,10 @@ void SDL2UIController::loadUnits(const vector<Unit> &units) {
   const Board &board = gameState.getBoard();
   for (int row = 0; row < board.size(); row++) {
     for (int col = 0; col < board[row].size(); col++) {
-      if (!board[row][col].isEmpty()) {
-        board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
+      Position position = make_unique<Position>(row,col);
+      if (!board.getTile(position).isEmpty()) {
+        unitsRectangles.push_back({col*WINDOW_WIDTH/3*2/10, row*WINDOW_HEIGHT/10, WINDOW_WIDTH/3*2/10, WINDOW_HEIGHT/10});
+        loadUnits(board.getOccupant(position));
       }
 
     }

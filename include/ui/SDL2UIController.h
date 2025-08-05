@@ -58,6 +58,9 @@ public:
   void renderLoop(int delay) override;
   Move getUserMove() override;
   void loadTextures() override;
+
+  void loadUnitTexture(const std::string& unitName);
+
   void closeThread() override;
   Texture loadTexture(const std::string &filename) const;
 
