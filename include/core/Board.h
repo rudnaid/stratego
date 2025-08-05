@@ -6,6 +6,7 @@
 class Board {
   std::vector<Square> squares;
   [[nodiscard]] static int toIndex(const Position& pos) ;
+  static bool isWithinBounds(const Position& pos);
 
 public:
   Board();

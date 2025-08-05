@@ -8,7 +8,6 @@ set(SOURCES
         core/Square.cpp
         core/GameConfig.cpp
         core/Player.cpp
-        ../include/core/Player.h
 )
 
 add_executable(stratego ${SOURCES})

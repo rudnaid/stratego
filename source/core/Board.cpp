@@ -9,10 +9,15 @@ Board::Board() : squares(GameConfig::ROWS * GameConfig::COLS) {
   }
 }
 
+bool Board::isWithinBounds(const Position& pos) {
+  return pos.row() >= 0 && pos.row() < GameConfig::ROWS &&
+         pos.col() >= 0 && pos.col() < GameConfig::COLS;
+}
+
 int Board::toIndex(const Position& pos) {
-  if (!pos.isOnBoard())
+  if (!isWithinBounds(pos))
     throw std::out_of_range("Position out of board bounds");
-  return pos.getRow() * GameConfig::COLS + pos.getCol();
+  return pos.row() * GameConfig::COLS + pos.col();
 }
 
 Square& Board::getSquare(const Position& pos) {
