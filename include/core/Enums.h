@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum class UnitRank {
   Marshal,      // 10
   General,      // 9
@@ -14,6 +16,24 @@ enum class UnitRank {
   Bomb,         // (special)
   Flag          // (special)
 };
+
+inline std::string toString(const UnitRank rank) {
+  switch(rank) {
+  case UnitRank::Marshal:    return "Marshal";
+  case UnitRank::General:    return "General";
+  case UnitRank::Colonel:    return "Colonel";
+  case UnitRank::Major:      return "Major";
+  case UnitRank::Captain:    return "Captain";
+  case UnitRank::Lieutenant: return "Lieutenant";
+  case UnitRank::Sergeant:   return "Sergeant";
+  case UnitRank::Miner:      return "Miner";
+  case UnitRank::Scout:      return "Scout";
+  case UnitRank::Spy:        return "Spy";
+  case UnitRank::Bomb:       return "Bomb";
+  case UnitRank::Flag:       return "Flag";
+  default:                   return "Unknown";
+  }
+}
 
 enum class PlayerColor {
   Red,
