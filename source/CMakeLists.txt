@@ -4,6 +4,10 @@ set(SOURCES
         ui/SDL2UIController.cpp
         ui/Texture.cpp
         core/GameFactory.cpp
+        core/Board.cpp
+        core/Square.cpp
+        core/GameConfig.cpp
+        core/Player.cpp
 )
 
 add_executable(stratego ${SOURCES})
