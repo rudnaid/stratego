@@ -47,13 +47,15 @@ public:
 
   void render() override;
 
-  void loadBoard(const GameState &gameState);
+  void setupBoard(const std::vector<Unit> &units, Player currentPlayer);
 
-  void drawBoard(const Board &board);
+  void loadBoard();
+
+  void drawBoard();
 
   void drawUnits();
 
-  void loadUnits(const std::vector<__resharper_unknown_type> &units);
+  void loadUnits(const std::vector<Unit> &units);
 
   void renderLoop(int delay) override;
   Move getUserMove() override;
