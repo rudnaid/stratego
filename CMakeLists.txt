@@ -5,8 +5,8 @@ project(stratego)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(
-        include/core/
-        include/ui/
+        include/core
+        include/ui
         include/rules
         include/util
 )

@@ -22,4 +22,8 @@ const std::vector<Unit *> &GameState::getUnitsNotOnBoard() const {
 
 Board &GameState::getBoard() { return board; }
 
+const Board &GameState::getBoard() const {
+  return board;
+}
+
 Player &GameState::getCurrentPlayer() { return players.at(currentPlayerID); }

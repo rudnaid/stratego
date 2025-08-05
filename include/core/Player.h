@@ -1,6 +1,5 @@
 #pragma once
 #include "Enums.h"
-#include "Move.h"
 
 class Player {
   int id;
@@ -12,4 +11,5 @@ public:
   [[nodiscard]] int getID() const;
   [[nodiscard]] PlayerColor getColor() const;
   [[nodiscard]] bool isHumanPlayer() const;
+  bool operator==(const Player & ) const = default;
 };

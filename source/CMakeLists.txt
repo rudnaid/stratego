@@ -10,6 +10,12 @@ set(SOURCES
         core/Tile.cpp
         core/GameConfig.cpp
         core/Player.cpp
+        rules/StandardMovementStrategy.cpp
+        rules/ScoutMovementStrategy.cpp
+        rules/NoMovementStrategy.cpp
+        rules/StandardCombatStrategy.cpp
+        rules/MinerCombatStrategy.cpp
+        rules/SpyCombatStrategy.cpp
 )
 
 add_executable(stratego ${SOURCES})
