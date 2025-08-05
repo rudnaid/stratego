@@ -16,6 +16,9 @@ void GameState::executeMove(const Move &move) {
   board.setOccupant(move.to, occupant);
   board.clearOccupant(move.from);
 }
+const std::vector<Unit *> &GameState::getUnitsNotOnBoard() const {
+  return unitsNotOnBoard;
+}
 
 Board &GameState::getBoard() { return board; }
 
