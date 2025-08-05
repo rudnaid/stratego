@@ -17,7 +17,7 @@ enum class UnitRank {
   Flag          // (special)
 };
 
-inline std::string toString(const UnitRank rank) {
+inline const std::string toString(const UnitRank rank) {
   switch(rank) {
   case UnitRank::Marshal:    return "Marshal";
   case UnitRank::General:    return "General";

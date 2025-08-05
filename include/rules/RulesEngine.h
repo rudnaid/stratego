@@ -1,5 +1,6 @@
 #pragma once
 #include "Enums.h"
+#include "GameState.h"
 #include "IRulesEngine.h"
 #include "Move.h"
 #include "Unit.h"

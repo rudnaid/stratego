@@ -8,7 +8,7 @@
 
 #include <memory>
 
-class GameFactory : public IGameFactory {
+class GameFactory final : public IGameFactory {
   std::unique_ptr<ISDL2UI> ui;
   std::unique_ptr<GameState> state;
   std::unique_ptr<IRulesEngine> rules;

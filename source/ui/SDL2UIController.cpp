@@ -61,10 +61,12 @@ void SDL2UIController::loadTextures() {
   sidepanelTexture = loadTexture(PATH + "sidepanel.png");
 }
 void SDL2UIController::loadUnitTexture(const string& unitName) {
-  unitsTextures.push_back(loadTexture(PATH + unitName+ ".png"));
+  Texture texture = loadTexture(PATH + unitName + ".bmp");
+  unitsTextures.push_back(move(texture));
 }
 
 Texture SDL2UIController::loadTexture(const string &filename) const {
+  cout << "Loading texture " << filename << endl;
   SDL_Texture *imgTexture = IMG_LoadTexture(renderer, filename.c_str());
   if (nullptr == imgTexture) {
     cout << "File not found: " << filename
@@ -157,7 +159,6 @@ void SDL2UIController::drawBackground() {
 void SDL2UIController::render() {
   SDL_RenderClear(renderer);
   drawBackground();
-  drawBoard();
   drawUnits();
   SDL_RenderPresent(renderer);
 }
@@ -176,10 +177,14 @@ void SDL2UIController::loadBoard() {
   }
 }
 
-void SDL2UIController::drawUnits() {
-  for (int i = 0; i < unitsRectangles.size(); i++) {
+void SDL2UIController::drawUnits(){
+  cout << "units size:" << unitsTextures.size() << endl;
+  if (unitsTextures.size() == 40) {
+    for (int i = 0; i < unitsRectangles.size(); i++) {
       unitsTextures[i].render(renderer, &unitsRectangles[i]);
+    }
   }
+
 }
 
 void SDL2UIController::loadUnits(const vector<Unit> &units) {
@@ -190,12 +195,12 @@ void SDL2UIController::loadUnits(const vector<Unit> &units) {
   int padding = 5;
 
   for (const Unit &unit : units) {
-    if ((xPos+unitWidth) % WINDOW_WIDTH >= 1) {
+    if ((xPos+unitWidth) / WINDOW_WIDTH >= 1) {
       xPos = WINDOW_WIDTH/3*2;
       yPos += padding + unitWidth ;
     }
     unitsRectangles.push_back({xPos, yPos, unitWidth, unitHeight});
-    unitsTextures.push_back(loadTexture(unit.getName()));
+    loadUnitTexture(unit.getName());
     xPos += padding + unitWidth ;
   }
 }

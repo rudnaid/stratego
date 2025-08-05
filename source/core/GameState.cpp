@@ -1,9 +1,11 @@
 #include "GameState.h"
 #include "Board.h"
 
-GameState::GameState()
-    : players{Player(0, PlayerColor::Blue, false),
-              Player(1, PlayerColor::Red, false)} {}
+GameState::GameState() {
+  players = {Player(0, PlayerColor::Blue, false),
+              Player(1, PlayerColor::Red, false)};
+  board= Board();
+};
 
 void GameState::setupInitialLayout() {
   throw std::runtime_error("Not implemented");
@@ -17,7 +19,7 @@ void GameState::executeMove(const Move &move) {
   board.setOccupant(move.to, occupant);
   board.clearOccupant(move.from);
 }
-const std::vector<Unit *> &GameState::getUnitsNotOnBoard() const {
+const std::vector<Unit> &GameState::getUnitsNotOnBoard() const {
   return unitsNotOnBoard;
 }
 
@@ -28,3 +30,7 @@ const Board &GameState::getBoard() const {
 }
 
 Player &GameState::getCurrentPlayer() { return players.at(currentPlayerID); }
+
+const std::vector<Player> &GameState::getPlayers() const {
+  return players;
+}

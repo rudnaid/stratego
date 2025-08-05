@@ -4,6 +4,7 @@ set(SOURCES
         ui/SDL2UIController.cpp
         ui/Texture.cpp
         core/GameFactory.cpp
+        core/GameState.cpp
         core/Unit.cpp
         core/PieceType.cpp
         core/Board.cpp

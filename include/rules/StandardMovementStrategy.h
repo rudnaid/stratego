@@ -1,7 +1,7 @@
 #pragma once
 #include "IMovementStrategy.h"
 
-class StandardMovementStrategy final : IMovementStrategy {
+class StandardMovementStrategy final : public IMovementStrategy {
 public:
   ~StandardMovementStrategy() override = default;
   [[nodiscard]] bool canMove(const Unit &unit, const Position &from,

@@ -11,10 +11,10 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  const std::unique_ptr<IGameFactory> factory = make_unique<GameFactory>();
+  const std::shared_ptr<IGameFactory> factory = make_shared<GameFactory>();
 
   const auto game = factory->createController();
-  //game->initGame();
+  game->initGame();
   game->startLoop();
 
   cout << "Exiting..." << endl;

@@ -20,4 +20,5 @@ public:
   virtual void clearDragPiece() = 0;
   virtual void showMessage(const std::string &message) = 0;
   virtual void setGameController(IGameController *gameController) = 0;
+  virtual void setupBoard(const std::vector<Unit> &units, Player currentPlayer) = 0;
 };

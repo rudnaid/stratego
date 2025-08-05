@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "Move.h"
 
 #include "Player.h"
@@ -6,12 +8,12 @@
 
 #include <vector>
 
-class Board;
+#include "Board.h"
 
 class GameState {
-  std::unique_ptr<Board> board;
+  Board board;
   std::vector<Player> players;
-  std::vector<Unit *> unitsNotOnBoard;
+  std::vector<Unit> unitsNotOnBoard;
   int currentPlayerID = 0;
 
 public:
@@ -19,8 +21,9 @@ public:
   void setupInitialLayout();
   void togglePlayer();
   void executeMove(const Move &move);
-  const std::vector<Unit *> &getUnitsNotOnBoard() const;
+  const std::vector<Unit> &getUnitsNotOnBoard() const;
   Board &getBoard();
   const Board &getBoard() const;
   Player &getCurrentPlayer();
+  const std::vector<Player> &getPlayers() const;
 };

@@ -18,7 +18,7 @@ bool StandardMovementStrategy::canMove(const Unit &unit, const Position &from,
                                        const GameState &state) const {
   const Board &board = state.getBoard();
 
-  if (board.isWithinBounds(to) && !isDestTileLake(board, to) &&
+  if (Board::isWithinBounds(to) && !isDestTileLake(board, to) &&
       !isOccupiedByOwnUnit(board, to, unit) && isAdjacent(from, to))
     return true;
 
