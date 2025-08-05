@@ -16,6 +16,7 @@ set(SOURCES
         rules/StandardCombatStrategy.cpp
         rules/MinerCombatStrategy.cpp
         rules/SpyCombatStrategy.cpp
+        rules/IMovementStrategy.cpp
 )
 
 add_executable(stratego ${SOURCES})

@@ -1,4 +1,5 @@
 #include <GameState.h>
+#include "Board.h"
 
 GameState::GameState()
     : players{Player(0, PlayerColor::Blue, false),

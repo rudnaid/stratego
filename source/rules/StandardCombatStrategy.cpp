@@ -1,4 +1,5 @@
 #include "StandardCombatStrategy.h"
+#include "Unit.h"
 
 CombatResult StandardCombatStrategy::resolve(Unit &attacker, Unit &defender) {
   const int attackerPower = attacker.getPower();

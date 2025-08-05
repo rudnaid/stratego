@@ -1,8 +1,9 @@
 #pragma once
 #include "PieceType.h"
 #include "Player.h"
-#include "ICombatStrategy.h"
-#include "IMovementStrategy.h"
+
+class IMovementStrategy;
+class ICombatStrategy;
 
 class Unit {
   PieceType& type;

@@ -1,4 +1,5 @@
 #include "MinerCombatStrategy.h"
+#include "Unit.h"
 
 CombatResult MinerCombatStrategy::resolve(Unit &attacker, Unit &defender) {
   if (defender.getRank() == UnitRank::Bomb) {

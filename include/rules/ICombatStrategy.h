@@ -1,6 +1,7 @@
 #pragma once
 #include "Enums.h"
-#include "Unit.h"
+
+class Unit;
 
 class ICombatStrategy {
 public:

@@ -1,4 +1,6 @@
 #include "Unit.h"
+#include "IMovementStrategy.h"
+#include "ICombatStrategy.h"
 
 Unit::Unit(PieceType &type, Player &owner, ICombatStrategy &combatStrategy,
            IMovementStrategy &moveStrategy)
