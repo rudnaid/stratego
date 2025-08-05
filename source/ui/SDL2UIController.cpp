@@ -4,6 +4,8 @@
 #include <iostream>
 #include <thread>
 
+#include "GameConfig.h"
+
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 
@@ -159,55 +161,47 @@ void SDL2UIController::render() {
   drawUnits();
   SDL_RenderPresent(renderer);
 }
-void SDL2UIController::loadBoard(const GameState &gameState) {
 
-  const Board &board = gameState.getBoard();
-  boardRectangles.size(board.size());
-  for (int row = 0; row < board.size(); row++) {
-    boardRectangles[row].size(board[row].size());
-    for (int col = 0; col < board[row].size(); col++) {
+void SDL2UIController::setupBoard(const vector<Unit> &units, Player currentPlayer) {
+  loadUnits(units);
+}
+
+void SDL2UIController::loadBoard() {
+  boardRectangles.resize(GameConfig::ROWS);
+  for (int row = 0; row < GameConfig::ROWS; row++) {
+    boardRectangles[row].resize(GameConfig::COLS);
+    for (int col = 0; col < GameConfig::COLS; col++) {
       boardRectangles[row][col] = {col*WINDOW_WIDTH/3*2/10, row*WINDOW_HEIGHT/10, WINDOW_WIDTH/3*2/10, WINDOW_HEIGHT/10};
     }
   }
 }
 
-void SDL2UIController::drawBoard(const GameState &gameState) {
-  const Board &board = gameState.getBoard();
-  boardRectangles.size(board.size());
-  for (int row = 0; row < board.size(); row++) {
-    boardRectangles[row].size(board[row].size());
-    for (int col = 0; col < board[row].size(); col++) {
-      board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
-    }
-  }
-}
 void SDL2UIController::drawUnits() {
-
-  const Board &board = gameState.getBoard();
-  for (int row = 0; row < board.size(); row++) {
-    for (int col = 0; col < board[row].size(); col++) {
-      Position position = make_unique<Position>(row,col);
-      if (!board.getTile(position).isEmpty()) {
-        board.getTile(row, col).render(renderer, &boardRectangles[row][col]);
-      }
-
-    }
+  for (int i = 0; i < unitsRectangles.size(); i++) {
+      unitsTextures[i].render(renderer, &unitsRectangles[i]);
   }
 }
+
 void SDL2UIController::loadUnits(const vector<Unit> &units) {
+  int xPos = WINDOW_WIDTH/3*2;
+  int yPos = WINDOW_HEIGHT/12*2;
+  int unitWidth = 64;
+  int unitHeight = 64;
+  int padding = 5;
 
-  const Board &board = gameState.getBoard();
-  for (int row = 0; row < board.size(); row++) {
-    for (int col = 0; col < board[row].size(); col++) {
-      Position position = make_unique<Position>(row,col);
-      if (!board.getTile(position).isEmpty()) {
-        unitsRectangles.push_back({col*WINDOW_WIDTH/3*2/10, row*WINDOW_HEIGHT/10, WINDOW_WIDTH/3*2/10, WINDOW_HEIGHT/10});
-        loadUnits(board.getOccupant(position));
-      }
-
+  for (const Unit &unit : units) {
+    if ((xPos+unitWidth) % WINDOW_WIDTH >= 1) {
+      xPos = WINDOW_WIDTH/3*2;
+      yPos += padding + unitWidth ;
     }
+    unitsRectangles.push_back({xPos, yPos, unitWidth, unitHeight});
+    unitsTextures.push_back(loadTexture(unit.getName()));
+    xPos += padding + unitWidth ;
   }
 }
+
+
+
 void SDL2UIController::renderLoop(int delay) {
   while (renderThreadRunning) {
     render();

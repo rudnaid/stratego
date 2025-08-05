@@ -12,8 +12,8 @@ GameController::~GameController() = default;
 void GameController::stopGame() { isRunning = false; }
 
 void GameController::initGame() {
-    // const vector<Player> &players = gameState->getPlayers();
-    //
+     const vector<Player> &players = gameState->getPlayers();
+
     // vector<Unit> player1units = UnitFactory-> createUnitsForPlayer( globalPieceTypes, players[0] );
     // ui.setupBoard(player1units);
     //
