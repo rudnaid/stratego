@@ -184,7 +184,6 @@ void SDL2UIController::drawUnits(){
       unitsTextures[i].render(renderer, &unitsRectangles[i]);
     }
   }
-
 }
 
 void SDL2UIController::loadUnits(const vector<std::unique_ptr<Unit>> &units) {

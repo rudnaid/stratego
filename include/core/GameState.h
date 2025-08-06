@@ -22,7 +22,8 @@ public:
   void togglePlayer();
   void executeMove(const Move &move);
   std::vector<std::unique_ptr<Unit>> &getUnitsNotOnBoard();
-  void addUnitsNotOnBoard(std::vector<std::unique_ptr<Unit>> units);
+  void addUnitsNotOnBoard(std::vector<std::unique_ptr<Unit>> &units);
+  bool addUnitToBoard(Move &move);
   Board &getBoard();
   const Board &getBoard() const;
   Player &getCurrentPlayer();

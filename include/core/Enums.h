@@ -57,3 +57,9 @@ enum class GameOutcome {
   Draw,
   InProgress
 };
+
+enum class GamePhase {
+  UnitPlacement,
+  ActiveGame,
+  GameOver
+};
