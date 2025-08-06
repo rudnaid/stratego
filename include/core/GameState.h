@@ -13,7 +13,7 @@
 class GameState {
   Board board;
   std::vector<Player> players;
-  std::vector<Unit> unitsNotOnBoard;
+  std::vector<std::unique_ptr<Unit>> unitsNotOnBoard;
   int currentPlayerID = 0;
 
 public:
@@ -21,7 +21,8 @@ public:
   void setupInitialLayout();
   void togglePlayer();
   void executeMove(const Move &move);
-  const std::vector<Unit> &getUnitsNotOnBoard() const;
+  std::vector<std::unique_ptr<Unit>> &getUnitsNotOnBoard();
+  void addUnitsNotOnBoard(std::vector<std::unique_ptr<Unit>> units);
   Board &getBoard();
   const Board &getBoard() const;
   Player &getCurrentPlayer();

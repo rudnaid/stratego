@@ -18,6 +18,8 @@ set(SOURCES
         rules/MinerCombatStrategy.cpp
         rules/SpyCombatStrategy.cpp
         rules/IMovementStrategy.cpp
+        util/UnitFactory.cpp
+        ../include/util/UnitFactory.h
 )
 
 add_executable(stratego ${SOURCES})

@@ -47,7 +47,7 @@ public:
 
   void render() override;
 
-  void setupBoard(const std::vector<Unit> &units, Player currentPlayer);
+  void setupBoard(const std::vector<std::unique_ptr<Unit>> &units, const Player &currentPlayer) override;
 
   void loadBoard();
 
@@ -55,7 +55,7 @@ public:
 
   void drawUnits();
 
-  void loadUnits(const std::vector<Unit> &units);
+  void loadUnits(const std::vector<std::unique_ptr<Unit>> &units);
 
   void renderLoop(int delay) override;
   Move getUserMove() override;

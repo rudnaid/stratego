@@ -1,11 +1,14 @@
 #include "Unit.h"
-#include "IMovementStrategy.h"
 #include "ICombatStrategy.h"
+#include "IMovementStrategy.h"
 
-Unit::Unit(PieceType &type, const Player &owner, ICombatStrategy &combatStrategy,
-           IMovementStrategy &moveStrategy)
-    : type(type), owner(owner), moveStrategy(moveStrategy),
-      combatStrategy(combatStrategy) {}
+Unit::Unit(const PieceType &type, const Player &owner,
+           std::shared_ptr<IMovementStrategy> moveStrategy,
+           std::shared_ptr<ICombatStrategy> combatStrategy)
+    : type(type),
+      owner(owner),
+      moveStrategy(std::move(moveStrategy)),
+      combatStrategy(std::move(combatStrategy)) {}
 
 int Unit::getPower() const { return type.getPower(); }
 
@@ -15,6 +18,6 @@ const std::string Unit::getName() const { return type.getName(); }
 
 UnitRank Unit::getRank() const { return type.getRank(); }
 
-IMovementStrategy &Unit::getMoveStrategy() const { return moveStrategy; }
+IMovementStrategy &Unit::getMoveStrategy() const { return *moveStrategy; }
 
-ICombatStrategy &Unit::getCombatStrategy() const { return combatStrategy; }
+ICombatStrategy &Unit::getCombatStrategy() const { return *combatStrategy; }
