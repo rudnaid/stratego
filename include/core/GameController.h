@@ -6,7 +6,7 @@
 class GameController : public IGameController {
   ISDL2UI *ui;
   GameState *gameState;
-
+  GamePhase phase;
   bool isRunning = true;
 
 public:

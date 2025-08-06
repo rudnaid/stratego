@@ -34,3 +34,15 @@ Player &GameState::getCurrentPlayer() { return players.at(currentPlayerID); }
 const std::vector<Player> &GameState::getPlayers() const {
   return players;
 }
+void GameState::addUnitsNotOnBoard(std::vector<std::unique_ptr<Unit>> &units) {
+  for (auto &unit : units) {
+    unitsNotOnBoard.emplace_back(std::move(unit));
+  }
+
+}
+bool GameState::addUnitToBoard(Move &move ) {
+  return true;
+
+}
+
+

@@ -20,6 +20,7 @@ set(SOURCES
         rules/IMovementStrategy.cpp
         util/UnitFactory.cpp
         ../include/util/UnitFactory.h
+        ../include/ui/SDL_UnitRect.h
 )
 
 add_executable(stratego ${SOURCES})
