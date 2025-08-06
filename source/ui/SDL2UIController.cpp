@@ -163,7 +163,7 @@ void SDL2UIController::render() {
   SDL_RenderPresent(renderer);
 }
 
-void SDL2UIController::setupBoard(const vector<Unit> &units, Player currentPlayer) {
+void SDL2UIController::setupBoard(const vector<std::unique_ptr<Unit>> &units, const Player &currentPlayer) {
   loadUnits(units);
 }
 
@@ -187,20 +187,20 @@ void SDL2UIController::drawUnits(){
 
 }
 
-void SDL2UIController::loadUnits(const vector<Unit> &units) {
+void SDL2UIController::loadUnits(const vector<std::unique_ptr<Unit>> &units) {
   int xPos = WINDOW_WIDTH/3*2;
   int yPos = WINDOW_HEIGHT/12*2;
   int unitWidth = 64;
   int unitHeight = 64;
   int padding = 5;
 
-  for (const Unit &unit : units) {
+  for (auto &unit : units) {
     if ((xPos+unitWidth) / WINDOW_WIDTH >= 1) {
       xPos = WINDOW_WIDTH/3*2;
       yPos += padding + unitWidth ;
     }
     unitsRectangles.push_back({xPos, yPos, unitWidth, unitHeight});
-    loadUnitTexture(unit.getName());
+    loadUnitTexture(unit->getName());
     xPos += padding + unitWidth ;
   }
 }
